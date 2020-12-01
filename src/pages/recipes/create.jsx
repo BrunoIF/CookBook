@@ -28,7 +28,11 @@ function Create({ ingredients }) {
   };
 
   const handleChange = (value) => {
-    setSelectedIngredients((prevState) => [...new Set([...prevState, value])]);
+    if (value) {
+      setSelectedIngredients((prevState) => [
+        ...new Set([...prevState, value]),
+      ]);
+    }
   };
 
   const handleIngredientClick = (ingr) => {
