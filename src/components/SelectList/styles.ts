@@ -78,25 +78,6 @@ export const ResetButton = styled.div`
   color: ${colors.white};
 `;
 
-// :global(.dark) {
-//   .selectedValue, .options {
-//     background-color: $dark-mode-blue;
-//     color: $white;
-//   }
-
-//   $lighten-dark-color: lighten($dark-mode-blue, 4%);
-
-//   .option {
-//     &:hover {
-//       background-color: $lighten-dark-color;
-//     }
-//   }
-
-//   .reset {
-//     background-color: $lighten-dark-color;
-//   }
-// }
-
 const slideDown = keyframes`
   0% {
     margin-top: -10px;
