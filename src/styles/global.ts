@@ -44,6 +44,18 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1`
   margin-top: 30px;
+
+  ${(props) =>
+    props.center &&
+    css`
+      text-align: center;
+    `}
+
+  ${(props) =>
+    props.large &&
+    css`
+      font-size: 34px;
+    `}
 `;
 
 export const Text = styled.p`
