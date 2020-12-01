@@ -13,3 +13,12 @@ export const GET_RECIPES = gql`
     }
   }
 `;
+
+export const CREATE_RECIPE = gql`
+  mutation createRecipe($recipe: RecipeInput!) {
+    createRecipe(input: $recipe) {
+      error
+      success
+    }
+  }
+`;
