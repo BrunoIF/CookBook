@@ -18,7 +18,11 @@ function Home() {
             text="Add new recipe"
             css={{ marginRight: '30px' }}
           />
-          <LinkButton to="/ingredients/create" text="Add new ingredient" />
+          <LinkButton
+            to="/ingredients/create"
+            text="Add new ingredient"
+            css={{ marginTop: 0 }}
+          />
         </S.Wrapper>
       </GlobalWrapper>
     </>

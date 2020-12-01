@@ -51,26 +51,20 @@ function Create({ ingredients }) {
       <Title>Create new recipe</Title>
       <S.Grid>
         <div>
-          <Text css={{ marginTop: '30px' }}>Recipe name:</Text>
+          <Text>Recipe name:</Text>
           <Input
             value={recipeTitle}
             onChange={(e) => setRecipeTitle(e.target.value)}
-            css={{ marginTop: '15px' }}
           />
-          <Text css={{ marginTop: '30px' }}>Cooking time:</Text>
+          <Text>Cooking time:</Text>
           <Input
             value={cookingTime}
             onChange={(e) => setCookingTime(e.target.value)}
-            css={{ marginTop: '15px' }}
           />
         </div>
-        <div>
-          <Text css={{ marginTop: '30px' }}>Ingredients:</Text>
-          <SelectList
-            options={ingredients}
-            css={{ marginTop: '15px' }}
-            onChange={handleChange}
-          />
+        <div css={{ marginTop: 0 }}>
+          <Text>Ingredients:</Text>
+          <SelectList options={ingredients} onChange={handleChange} />
 
           <S.FlexRow>
             {selectedIngredients.map((ingr) => (

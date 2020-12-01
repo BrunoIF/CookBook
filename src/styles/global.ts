@@ -21,9 +21,9 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  // * + * {
-  //   margin-top: 1.5em;
-  // }
+  * + * {
+    margin-top: 1.5em;
+  }
 
   html {
     font-size: 62.5%;

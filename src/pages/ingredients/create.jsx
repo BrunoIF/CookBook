@@ -35,11 +35,10 @@ function Create() {
         Icon={<FontAwesomeIcon icon={faArrowLeft} />}
       />
       <Title>Add new Ingredient</Title>
-      <Text css={{ marginTop: '30px' }}>Ingredient name:</Text>
+      <Text>Ingredient name:</Text>
       <Input
         value={ingredientName}
         onChange={(e) => setIngredientName(e.target.value)}
-        css={{ marginTop: '15px' }}
       />
       <Button
         type="button"
