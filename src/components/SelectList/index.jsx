@@ -4,7 +4,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 import * as S from './styles';
 
-function SelectList({ options, onChange }) {
+function SelectList({ options, onChange, ...props }) {
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
   const [isResetOpen, setIsResetOpen] = useState(false);
@@ -31,7 +31,7 @@ function SelectList({ options, onChange }) {
   }, [selectedValue]);
 
   return (
-    <S.Wrapper>
+    <S.Wrapper {...props}>
       {isResetOpen && (
         <S.ResetButton onClick={() => handleReset()}>&times;</S.ResetButton>
       )}
