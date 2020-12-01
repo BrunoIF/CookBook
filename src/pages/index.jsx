@@ -3,13 +3,16 @@ import React from 'react';
 import LinkButton from 'components/Buttons/LinkButton';
 
 import * as S from './index.styles';
-import { Wrapper as GlobalWrapper } from 'styles/global';
+import { Wrapper as GlobalWrapper, Title } from 'styles/global';
 
 function Home() {
   return (
     <>
       <GlobalWrapper>
-        <S.Wrapper>
+        <Title center large>
+          Welcome to Cookbook
+        </Title>
+        <S.Wrapper css={{ marginTop: '30px' }}>
           <LinkButton
             to="/recipes/create"
             text="Add new recipe"
