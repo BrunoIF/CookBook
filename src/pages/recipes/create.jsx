@@ -1,27 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { toast } from 'react-toastify';
 
 import { CREATE_RECIPE } from 'queries/recipes';
+import { GET_INGREDIENTS } from 'queries/ingredients';
 import Input from 'components/Input';
 import SelectList from 'components/SelectList';
 import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
-import { Wrapper as GlobalWrapper, Title, Text } from 'styles/global';
+import Loader from 'components/Loader';
+import { Wrapper as GlobalWrapper, Title, Text, FlexRow } from 'styles/global';
 import * as S from './styles';
 
-function Create({ ingredients }) {
-  const [createRecipe] = useMutation(CREATE_RECIPE);
+function Create() {
+  const [
+    createRecipe,
+    { data: recipeData, loading, error, called },
+  ] = useMutation(CREATE_RECIPE);
+  const { data } = useQuery(GET_INGREDIENTS);
   const [recipeTitle, setRecipeTitle] = useState('');
   const [cookingTime, setCookingTime] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      const { ingredients: receivedIngredients } = data;
+      if (receivedIngredients) {
+        setIngredients(receivedIngredients);
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (called) {
+      if (!error) {
+        toast.success('Ingredient successfully created!', {
+          css: { backgroundColor: 'green' },
+        });
+        setRecipeTitle('');
+        setCookingTime('');
+        setSelectedIngredients([]);
+      } else {
+        toast.error('Oops, something went wrong.');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recipeData, data]);
 
   const handleClick = () => {
+    const ingredientIds = selectedIngredients.map((selIngr) =>
+      parseInt(ingredients.find((ingr) => ingr.name === selIngr).id),
+    );
+
+    console.log('ingredientIds', ingredientIds);
+
     const recipe = {
       title: recipeTitle,
       cookingTime,
-      ingredients: selectedIngredients,
+      ingredients: ingredientIds,
+      image: 'https://picsum.photos/200/300',
     };
 
     createRecipe({ variables: { recipe } });
@@ -64,7 +105,11 @@ function Create({ ingredients }) {
         </div>
         <div css={{ marginTop: 0 }}>
           <Text>Ingredients:</Text>
-          <SelectList options={ingredients} onChange={handleChange} />
+          <SelectList
+            options={ingredients.map((ingr) => ingr.name)}
+            placeholder="Choose an ingredient"
+            onChange={handleChange}
+          />
 
           <S.FlexRow>
             {selectedIngredients.map((ingr) => (
@@ -79,33 +124,17 @@ function Create({ ingredients }) {
         </div>
       </S.Grid>
 
-      <Button
-        type="button"
-        onClick={handleClick}
-        text="Create recipe"
-        css={{ marginTop: '30px' }}
-      />
+      <FlexRow>
+        <Button
+          type="button"
+          onClick={handleClick}
+          text="Create recipe"
+          css={{ marginTop: '30px' }}
+        />
+        {loading && <Loader css={{ marginTop: 0 }} />}
+      </FlexRow>
     </GlobalWrapper>
   );
 }
-
-export const getStaticProps = async () => {
-  // Query to get ingredients and set them statically
-
-  return {
-    revalidate: 10,
-    props: {
-      ingredients: [
-        'Choose ingredients',
-        'Water',
-        'Pineapple',
-        'Sugar',
-        'Frozen Water',
-        'Strawberry',
-        'Mango',
-      ],
-    },
-  };
-};
 
 export default Create;

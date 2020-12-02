@@ -10,7 +10,9 @@ export const CREATE_INGREDIENT = gql`
 
 export const GET_INGREDIENTS = gql`
   query getIngredients {
-    id
-    name
+    ingredients {
+      name
+      id
+    }
   }
 `;
