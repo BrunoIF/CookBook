@@ -4,8 +4,8 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 import * as S from './styles';
 
-function SelectList({ options, onChange, ...props }) {
-  const [selectedValue, setSelectedValue] = useState(options[0]);
+function SelectList({ options, onChange, placeholder, ...props }) {
+  const [selectedValue, setSelectedValue] = useState(placeholder);
   const [isOpen, setIsOpen] = useState(false);
   const [isResetOpen, setIsResetOpen] = useState(false);
 
@@ -16,12 +16,12 @@ function SelectList({ options, onChange, ...props }) {
 
   const handleReset = () => {
     setIsOpen(false);
-    setSelectedValue(options[0]);
+    setSelectedValue(placeholder);
     onChange('');
   };
 
   useEffect(() => {
-    if (selectedValue !== options[0]) {
+    if (selectedValue !== placeholder) {
       onChange(selectedValue);
       setIsResetOpen(true);
     } else {
@@ -44,7 +44,7 @@ function SelectList({ options, onChange, ...props }) {
         )}
       </S.SelectedValue>
       <S.OptionsWrapper open={isOpen}>
-        {options.slice(1, options.length).map((option) => (
+        {options.map((option) => (
           <S.Option key={option} onClick={() => handleChange(option)}>
             {option}
           </S.Option>
