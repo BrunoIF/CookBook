@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_INGREDIENT = gql`
-  mutation createIngredient($ingredient: CreateIngredientMutationInput!) {
+  mutation createIngredient($ingredient: IngredientInput!) {
     createIngredient(input: $ingredient) {
       name
     }

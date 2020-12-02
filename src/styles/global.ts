@@ -62,4 +62,10 @@ export const Text = styled.p`
   font-size: 16px;
 `;
 
+export const FlexRow = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+`;
+
 export default GlobalStyles;

@@ -1,31 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { toast } from 'react-toastify';
 
 import { CREATE_INGREDIENT } from 'queries/ingredients';
-import { GET_RECIPES } from 'queries/recipes';
 import Input from 'components/Input';
 import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
-import { Wrapper as GlobalWrapper, Title, Text } from 'styles/global';
+import Loader from 'components/Loader';
+import { Wrapper as GlobalWrapper, Title, Text, FlexRow } from 'styles/global';
 
 function Create() {
-  const { data, loading, error } = useQuery(GET_RECIPES);
-  const [createIngredient] = useMutation(CREATE_INGREDIENT);
+  const [createIngredient, { data, loading, error, called }] = useMutation(
+    CREATE_INGREDIENT,
+  );
   const [ingredientName, setIngredientName] = useState('');
-
-  useEffect(() => {
-    console.log('data', data);
-    console.log('loading', loading);
-    console.log('error', error);
-  }, [data, loading, error]);
 
   const handleClick = () => {
     createIngredient({
       variables: { ingredient: { name: `${ingredientName}` } },
     });
   };
+
+  useEffect(() => {
+    if (called) {
+      if (!error) {
+        toast.success('Ingredient successfully created!', {
+          css: { backgroundColor: 'green' },
+        });
+        setIngredientName('');
+      } else {
+        toast.error('Oops, something went wrong.');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, error]);
 
   return (
     <GlobalWrapper>
@@ -40,13 +50,16 @@ function Create() {
         value={ingredientName}
         onChange={(e) => setIngredientName(e.target.value)}
       />
-      <Button
-        type="button"
-        onClick={handleClick}
-        disabled={!ingredientName.length}
-        text="Add"
-        css={{ marginTop: '30px' }}
-      />
+      <FlexRow>
+        <Button
+          type="button"
+          onClick={handleClick}
+          disabled={!ingredientName.length}
+          text="Add"
+          css={{ marginTop: '30px' }}
+        />
+        {loading && <Loader />}
+      </FlexRow>
     </GlobalWrapper>
   );
 }
