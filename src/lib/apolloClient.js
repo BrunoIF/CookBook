@@ -7,19 +7,15 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 const GRAPHQL_ENDPOINT = 'http://localhost:8090/graphql/';
-const LOCAL_API_ENDPOINT = 'http://localhost:3000/api';
 
 const getSessionToken = async () => {
-  const result = await fetch(`${LOCAL_API_ENDPOINT}/session`);
-  const token = await result.json();
+  const authInfo = await localStorage.getItem('cookbook_auth');
 
-  console.log('token', token.jwtToken);
-
-  return token.jwtToken;
+  return authInfo.token;
 };
 
 const getAuthorizationHeader = async () => ({
-  Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJleHAiOjE2MDY5MzMyODIsIm9yaWdJYXQiOjE2MDY5MzE0ODJ9.572iTD2BWy4HpewdZ-oNk7UAaj4ocYdpBx2MHyR2ZsQ`,
+  Authorization: `Bearer ${await getSessionToken()}`,
 });
 
 const getHeaders = async () => {
