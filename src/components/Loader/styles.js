@@ -5,6 +5,16 @@ import colors from 'styles/variables/colors';
 const loaderSize = '25px';
 const borderSize = '5px';
 
+const spin = keyframes`
+  0% {
+    transform: rotate(0);
+  }
+  
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
 export const Loader = styled.div`
   width: ${loaderSize} + ${borderSize} * 2;
   height: ${loaderSize} + ${borderSize} * 2;
@@ -23,15 +33,5 @@ export const Loader = styled.div`
     border: ${borderSize} solid transparent;
     border-top-color: ${colors.dark_gray};
     border-radius: 100%;
-  }
-`;
-
-const spin = keyframes`
-  0% {
-    transform: rotate(0);
-  }
-  
-  100% {
-    transform: rotate(360deg);
   }
 `;
