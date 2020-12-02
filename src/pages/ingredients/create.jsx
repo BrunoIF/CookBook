@@ -4,11 +4,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useMutation, useQuery } from '@apollo/client';
 
 import { CREATE_INGREDIENT } from 'queries/ingredients';
+import { GET_RECIPES } from 'queries/recipes';
 import Input from 'components/Input';
 import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import { Wrapper as GlobalWrapper, Title, Text } from 'styles/global';
-import { GET_RECIPES } from '../../queries/recipes';
 
 function Create() {
   const { data, loading, error } = useQuery(GET_RECIPES);
