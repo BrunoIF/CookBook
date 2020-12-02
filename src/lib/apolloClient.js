@@ -8,9 +8,9 @@ import { setContext } from '@apollo/client/link/context';
 
 const GRAPHQL_ENDPOINT = 'http://localhost:8090/graphql/';
 
-const getSessionToken = () => {
+export const getSessionToken = () => {
   const authInfo = JSON.parse(localStorage.getItem('cookbook_auth'));
-  return authInfo.token;
+  return authInfo?.token;
 };
 
 const authLink = setContext((_, { headers }) => {
@@ -36,3 +36,15 @@ export default new ApolloClient({
   link: finalLink,
   cache,
 });
+
+export async function getStandaloneApolloClient() {
+  const { ApolloClient, InMemoryCache, HttpLink } = await import(
+    '@apollo/client'
+  );
+  return new ApolloClient({
+    link: new HttpLink({
+      uri: GRAPHQL_ENDPOINT,
+    }),
+    cache: new InMemoryCache(),
+  });
+}
