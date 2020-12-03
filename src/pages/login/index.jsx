@@ -1,42 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useMutation } from '@apollo/client';
-
-import { GET_AUTH_TOKEN } from 'queries/authentication';
 import { Wrapper as GlobalWrapper, Title, Text } from 'styles/global';
 import Button from 'components/Buttons/Button';
 import Input from 'components/Input';
+import { useAuth } from 'context/auth';
 
 function Login() {
-  const [getAuthToken, { data, error, called }] = useMutation(GET_AUTH_TOKEN);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
-    if (called) {
-      if (!error && called) {
-        console.log('data', data);
-        const token = data?.tokenAuth?.token;
-
-        const authInfo = {
-          token,
-          username,
-        };
-        localStorage.removeItem('cookbook_auth');
-        localStorage.setItem('cookbook_auth', JSON.stringify(authInfo));
-        router.push('/');
-      } else {
-        alert('error!', error);
-        console.log('error', error);
-      }
+    if (isAuthenticated) {
+      router.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error]);
+  }, [isAuthenticated]);
 
   const handleClick = () => {
-    getAuthToken({ variables: { username, password } });
+    login(username, password);
   };
 
   return (

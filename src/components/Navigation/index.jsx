@@ -1,20 +1,15 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 
+import { useAuth } from 'context/auth';
 import * as S from './styles';
 
 function Navigation() {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    localStorage.removeItem('cookbook_auth');
-    router.push('/login');
-  };
+  const { isAuthenticated, logout } = useAuth();
 
   return (
     <S.Wrapper>
       <h1>Cookbook</h1>
-      <S.Logout onClick={handleLogout}>Logout</S.Logout>
+      {isAuthenticated && <S.Logout onClick={logout}>Logout</S.Logout>}
     </S.Wrapper>
   );
 }
