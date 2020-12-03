@@ -5,12 +5,13 @@ import {
   HttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import Cookies from 'js-cookie';
 
 const GRAPHQL_ENDPOINT = 'http://localhost:8090/graphql/';
 
 export const getSessionToken = () => {
-  const authInfo = JSON.parse(localStorage.getItem('cookbook_auth'));
-  return authInfo?.token;
+  const token = Cookies.get('token');
+  return token;
 };
 
 const authLink = setContext((_, { headers }) => {
