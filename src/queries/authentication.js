@@ -9,3 +9,19 @@ export const GET_AUTH_TOKEN = gql`
     }
   }
 `;
+
+export const REFRESH_TOKEN = gql`
+  mutation refreshToken($token: String!) {
+    refreshToken(token: $token) {
+      token
+    }
+  }
+`;
+
+export const VERIFY_TOKEN = gql`
+  mutation verifyToken($token: String!) {
+    verifyToken(token: $token) {
+      payload
+    }
+  }
+`;
