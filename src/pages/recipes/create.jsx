@@ -27,7 +27,6 @@ function Create() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       const { ingredients: receivedIngredients } = data;
       if (receivedIngredients) {
         setIngredients(receivedIngredients);
@@ -55,8 +54,6 @@ function Create() {
     const ingredientIds = selectedIngredients.map((selIngr) =>
       parseInt(ingredients.find((ingr) => ingr.name === selIngr).id),
     );
-
-    console.log('ingredientIds', ingredientIds);
 
     const recipe = {
       title: recipeTitle,
