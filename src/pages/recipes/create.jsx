@@ -12,7 +12,7 @@ import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import Loader from 'components/Loader';
 import { Wrapper as GlobalWrapper, Title, Text, FlexRow } from 'styles/global';
-import * as S from './styles';
+import * as S from 'styles/recipes.styles';
 
 function Create() {
   const [

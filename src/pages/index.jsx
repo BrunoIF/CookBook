@@ -5,7 +5,7 @@ import LinkButton from 'components/Buttons/LinkButton';
 import { GET_ALL_RECIPES } from 'queries/recipes';
 import Card from 'components/Card';
 
-import * as S from './index.styles';
+import * as S from 'styles/index.styles';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
 
 function Home() {

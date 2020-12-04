@@ -11,7 +11,7 @@ import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
 
-import * as S from '../styles';
+import * as S from 'styles/recipes.styles';
 import { DELETE_RECIPE } from 'queries/recipes';
 
 function Recipe({ recipeId }) {
@@ -25,7 +25,6 @@ function Recipe({ recipeId }) {
   const [recipe, setRecipe] = useState({});
 
   useEffect(() => {
-    console.log('data', data);
     if (data && !error) {
       setRecipe(data?.recipe);
     }

@@ -22,7 +22,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "src/styles/global.js", "src/components/SelectList/styles.js"
   ],
   "exclude": [
     "node_modules"
