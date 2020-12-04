@@ -11,8 +11,8 @@ import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
 
-import * as S from './styles';
-import { DELETE_RECIPE } from '../../queries/recipes';
+import * as S from '../styles';
+import { DELETE_RECIPE } from 'queries/recipes';
 
 function Recipe({ recipeId }) {
   const { data, loading, error, called } = useQuery(GET_RECIPE, {
@@ -64,11 +64,14 @@ function Recipe({ recipeId }) {
               <S.IngredientsWrapper>
                 <Info title="Ingredients" description={ingredientsList} />
               </S.IngredientsWrapper>
-              <Button
-                css={{ marginTop: '30px' }}
-                text="Delete Recipe"
-                onClick={handleDeleteRecipe}
-              />
+              <S.FlexRow css={{ marginTop: '30px' }}>
+                <Button text="Delete Recipe" onClick={handleDeleteRecipe} />
+                <LinkButton
+                  to={`/recipes/${recipeId}/edit`}
+                  css={{ marginLeft: '30px', marginTop: 0 }}
+                  text="Edit Recipe"
+                />
+              </S.FlexRow>
             </div>
           </S.FlexRow>
         ) : (

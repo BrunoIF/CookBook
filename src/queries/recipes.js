@@ -43,3 +43,11 @@ export const DELETE_RECIPE = gql`
     }
   }
 `;
+
+export const UPDATE_RECIPE = gql`
+  mutation updateRecipe($recipe: RecipeInput!) {
+    updateRecipe(input: $recipe) {
+      title
+    }
+  }
+`;
