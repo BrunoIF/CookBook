@@ -8,6 +8,7 @@ export const GET_ALL_RECIPES = gql`
       cookingTime
       image
       ingredients {
+        id
         name
       }
     }

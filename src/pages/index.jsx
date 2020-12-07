@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import React from 'react';
 
 import LinkButton from 'components/Buttons/LinkButton';
 import { GET_ALL_RECIPES } from 'queries/recipes';
-import Card from 'components/Card';
+import { initializeApollo, addApolloState } from 'lib/apolloClient';
+import RecipesList from 'components/RecipesList';
 
 import * as S from 'styles/index.styles';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
 
 function Home() {
-  const { data, error, called } = useQuery(GET_ALL_RECIPES);
-  const [recipes, setRecipes] = useState([]);
-
-  useEffect(() => {
-    if (called) {
-      if (data && !error) {
-        setRecipes(data.recipes);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
   return (
     <>
       <GlobalWrapper>
@@ -39,21 +27,18 @@ function Home() {
             css={{ marginTop: 0 }}
           />
         </S.Wrapper>
-        {!!recipes.length && (
-          <div>
-            <Title center css={{ marginTop: '70px' }}>
-              Explore recipes
-            </Title>
-            <S.Wrapper>
-              {recipes.map((rec) => (
-                <Card key={rec.id} recipe={rec} />
-              ))}
-            </S.Wrapper>
-          </div>
-        )}
+        <RecipesList />
       </GlobalWrapper>
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({ query: GET_ALL_RECIPES });
+
+  return addApolloState(apolloClient, { props: {}, revalidate: 10 });
+};
 
 export default Home;
