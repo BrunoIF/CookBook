@@ -37,7 +37,7 @@ function Create() {
   useEffect(() => {
     if (called) {
       if (!error) {
-        toast.success('Ingredient successfully created!', {
+        toast.success('Recipe successfully created!', {
           css: { backgroundColor: 'green' },
         });
         setRecipeTitle('');
