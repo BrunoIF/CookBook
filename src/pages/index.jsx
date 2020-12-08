@@ -33,12 +33,12 @@ function Home() {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({ query: GET_ALL_RECIPES });
 
-  return addApolloState(apolloClient, { props: {}, revalidate: 10 });
+  return addApolloState(apolloClient, { props: {} });
 };
 
 export default Home;
