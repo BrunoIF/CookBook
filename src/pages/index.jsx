@@ -1,8 +1,6 @@
 import React from 'react';
 
 import LinkButton from 'components/Buttons/LinkButton';
-import { GET_ALL_RECIPES } from 'queries/recipes';
-import { initializeApollo, addApolloState } from 'lib/apolloClient';
 import RecipesList from 'components/RecipesList';
 
 import * as S from 'styles/index.styles';
@@ -32,13 +30,5 @@ function Home() {
     </>
   );
 }
-
-export const getServerSideProps = async () => {
-  const apolloClient = initializeApollo();
-
-  await apolloClient.query({ query: GET_ALL_RECIPES });
-
-  return addApolloState(apolloClient, { props: {} });
-};
 
 export default Home;

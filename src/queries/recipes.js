@@ -52,3 +52,18 @@ export const UPDATE_RECIPE = gql`
     }
   }
 `;
+
+export const GET_ALL_RECIPE_CREATED = gql`
+  subscription getRecipeCreated {
+    recipeCreated {
+      id
+      title
+      cookingTime
+      image
+      ingredients {
+        id
+        name
+      }
+    }
+  }
+`;
