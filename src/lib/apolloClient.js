@@ -6,9 +6,14 @@ import {
   HttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 import Cookies from 'js-cookie';
+import ws from 'ws';
 
 export const GRAPHQL_ENDPOINT = 'http://localhost:8090/graphql/';
+export const WS_GRAPHQL_ENDPOINT = 'ws://localhost:8090/graphql/';
 
 export const getSessionToken = () => {
   const token = Cookies.get('token');
@@ -29,9 +34,38 @@ const httpLink = new HttpLink({
   uri: GRAPHQL_ENDPOINT,
 });
 
-const finalLink = ApolloLink.from([authLink, httpLink]);
+const subscriptionClient =
+  typeof window !== 'undefined'
+    ? new SubscriptionClient(WS_GRAPHQL_ENDPOINT, {
+        reconnect: true,
+        connectionParams: {
+          headers: {
+            authorization: `Bearer ${getSessionToken()}`,
+          },
+        },
+        ws,
+      })
+    : null;
 
-const cache = new InMemoryCache();
+const wsLink =
+  typeof window !== 'undefined' ? new WebSocketLink(subscriptionClient) : null;
+
+const splitLink =
+  typeof window !== 'undefined'
+    ? ApolloLink.split(
+        ({ query }) => {
+          const definition = getMainDefinition(query);
+          return (
+            definition.kind === 'OperationDefinition' &&
+            definition.operation === 'subscription'
+          );
+        },
+        wsLink,
+        httpLink,
+      )
+    : httpLink;
+
+const finalLink = ApolloLink.from([authLink, splitLink]);
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -42,7 +76,7 @@ function createApolloClient() {
     ssrMode: typeof window === 'undefined',
     uri: GRAPHQL_ENDPOINT,
     link: finalLink,
-    cache,
+    cache: new InMemoryCache(),
   });
 }
 
@@ -71,7 +105,6 @@ export function initializeApollo(initialState = null) {
 
 export function addApolloState(client, pageProps) {
   if (pageProps?.props) {
-    console.log('pageProps', pageProps);
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
   }
 
