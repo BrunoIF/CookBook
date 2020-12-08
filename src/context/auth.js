@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 
 import { VERIFY_TOKEN, GET_AUTH_TOKEN } from 'queries/authentication';
@@ -9,15 +9,12 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [
-    verifyUser,
-    { data: verifyTokenData, called: verifyTokenCalled },
-  ] = useMutation(VERIFY_TOKEN);
-  const [
-    getAuthToken,
-    { data: loginData, error, loginError, called: loginCalled },
-  ] = useMutation(GET_AUTH_TOKEN);
+  const [verifyUser, { data: verifyTokenData }] = useMutation(VERIFY_TOKEN);
+  const [getAuthToken, { data: loginData, error: loginError }] = useMutation(
+    GET_AUTH_TOKEN,
+  );
 
   useEffect(() => {
     function loadUserFromCookies() {
@@ -31,11 +28,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (verifyTokenCalled) {
-      if (verifyTokenData) {
-        const user = verifyTokenData?.verifyToken.payload?.username;
-        if (user) setUser(user);
-      }
+    if (verifyTokenData) {
+      const user = verifyTokenData?.verifyToken.payload?.username;
+      if (user) setUser(user);
     }
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,17 +41,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (loginCalled) {
-      if (!loginError && loginCalled) {
-        const token = loginData?.tokenAuth?.token;
-        const user = loginData?.tokenAuth?.payload.username;
+    console.log('data', loginData);
+    if (loginData) {
+      const token = loginData?.tokenAuth?.token;
+      const user = loginData?.tokenAuth?.payload.username;
 
-        setUser(user);
-        Cookies.set('token', token);
-        Router.push('/');
-      } else {
-        console.log('error', error);
-      }
+      setUser(user);
+      Cookies.set('token', token);
+      router.push('/');
+      console.log('should push to /');
+    } else {
+      console.log('error', loginError);
     }
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,6 +60,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     Cookies.remove('token');
     setUser(null);
+    router.push('/login');
   };
 
   return (
@@ -80,6 +76,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const ProtectRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
 
   if (isLoading) {
     return <h1>Loading</h1>;
@@ -87,8 +84,7 @@ export const ProtectRoute = ({ children }) => {
     const isLoginPage = window.location.pathname === '/login';
 
     if (!isAuthenticated && !isLoginPage) {
-      window.location.href = '/login';
-      return;
+      router.push('/login');
     }
   }
 
