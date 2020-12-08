@@ -10,6 +10,7 @@ import Info from 'components/Info';
 import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
+import { initializeApollo, addApolloState } from 'lib/apolloClient';
 
 import * as S from 'styles/recipes.styles';
 import { DELETE_RECIPE } from 'queries/recipes';
@@ -91,11 +92,13 @@ export const getStaticProps = async (context) => {
     params: { recipe },
   } = context;
 
-  return {
-    props: {
-      recipeId: recipe,
-    },
-  };
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({ query: GET_RECIPE, variables: { id: recipe } });
+
+  return addApolloState(apolloClient, {
+    props: { recipeId: recipe },
+  });
 };
 
 export default Recipe;
