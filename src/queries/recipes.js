@@ -53,7 +53,7 @@ export const UPDATE_RECIPE = gql`
   }
 `;
 
-export const GET_ALL_RECIPE_CREATED = gql`
+export const GET_RECIPE_CREATED = gql`
   subscription getRecipeCreated {
     recipeCreated {
       id

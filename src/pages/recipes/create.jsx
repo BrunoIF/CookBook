@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
 
 import { CREATE_RECIPE } from 'queries/recipes';
-import { GET_INGREDIENTS } from 'queries/ingredients';
+import { GET_INGREDIENTS, GET_CREATED_INGREDIENT } from 'queries/ingredients';
 import Input from 'components/Input';
 import SelectList from 'components/SelectList';
 import LinkButton from 'components/Buttons/LinkButton';
@@ -19,20 +19,29 @@ function Create() {
     createRecipe,
     { data: recipeData, loading, error, called },
   ] = useMutation(CREATE_RECIPE);
-  const { data } = useQuery(GET_INGREDIENTS);
+  const { data: initialIngredients } = useQuery(GET_INGREDIENTS);
+  const { data: createdIngredient } = useSubscription(GET_CREATED_INGREDIENT);
   const [recipeTitle, setRecipeTitle] = useState('');
   const [cookingTime, setCookingTime] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
-    if (data) {
-      const { ingredients: receivedIngredients } = data;
+    if (initialIngredients) {
+      const { ingredients: receivedIngredients } = initialIngredients;
       if (receivedIngredients) {
         setIngredients(receivedIngredients);
       }
     }
-  }, [data]);
+  }, [initialIngredients]);
+
+  useEffect(() => {
+    console.log('createdIngredient', createdIngredient);
+    if (createdIngredient) {
+      const { ingredientCreated } = createdIngredient;
+      setIngredients((prevState) => [...prevState, ...ingredientCreated]);
+    }
+  }, [createdIngredient]);
 
   useEffect(() => {
     if (called) {
@@ -48,7 +57,7 @@ function Create() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipeData, data]);
+  }, [recipeData]);
 
   const handleClick = () => {
     const ingredientIds = selectedIngredients.map((selIngr) =>

@@ -16,3 +16,12 @@ export const GET_INGREDIENTS = gql`
     }
   }
 `;
+
+export const GET_CREATED_INGREDIENT = gql`
+  subscription getIngredients {
+    ingredientCreated {
+      name
+      id
+    }
+  }
+`;
