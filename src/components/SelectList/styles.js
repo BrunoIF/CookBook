@@ -43,6 +43,8 @@ export const OptionsWrapper = styled.div`
   display: none;
   overflow: hidden;
   user-select: none;
+  max-height: 500px;
+  overflow-y: auto;
 
   ${(props) =>
     props.open &&
