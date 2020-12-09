@@ -2,6 +2,8 @@ import React from 'react';
 
 import LinkButton from 'components/Buttons/LinkButton';
 import RecipesList from 'components/RecipesList';
+import { GET_ALL_RECIPES } from 'queries/recipes';
+import { initializeApollo, addApolloState } from 'lib/apolloClient';
 
 import * as S from 'styles/index.styles';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
@@ -30,5 +32,16 @@ function Home() {
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({ query: GET_ALL_RECIPES });
+
+  return addApolloState(apolloClient, {
+    props: {},
+    revalidate: 10,
+  });
+};
 
 export default Home;
