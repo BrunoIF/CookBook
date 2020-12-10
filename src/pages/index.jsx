@@ -40,7 +40,6 @@ export const getServerSideProps = async () => {
 
   return addApolloState(apolloClient, {
     props: {},
-    revalidate: 10,
   });
 };
 
