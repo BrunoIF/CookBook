@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
+import { Provider as AuthProvider } from 'next-auth/client';
 
 import { useApollo } from 'lib/apolloClient';
 import Navigation from 'components/Navigation';
@@ -25,24 +26,25 @@ function App({ Component, pageProps }) {
       </Head>
 
       <GlobalStyles />
-
-      <ApolloProvider client={apolloClient}>
-        <Navigation />
-        <ToastContainer
-          position="bottom-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          closeOnClick
-          draggable={false}
-          css={{
-            position: 'fixed',
-            bottom: '24px',
-            right: '24px',
-            width: '586px',
-          }}
-        />
-        <Component {...pageProps} />
-      </ApolloProvider>
+      <AuthProvider session={pageProps.session}>
+        <ApolloProvider client={apolloClient}>
+          <Navigation />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            closeOnClick
+            draggable={false}
+            css={{
+              position: 'fixed',
+              bottom: '24px',
+              right: '24px',
+              width: '586px',
+            }}
+          />
+          <Component {...pageProps} />
+        </ApolloProvider>
+      </AuthProvider>
     </>
   );
 }
