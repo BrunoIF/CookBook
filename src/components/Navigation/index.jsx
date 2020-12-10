@@ -1,15 +1,14 @@
 import React from 'react';
+import { signOut, useSession } from 'next-auth/client';
 
-import { useAuth } from 'context/auth';
 import * as S from './styles';
 
 function Navigation() {
-  const { isAuthenticated, logout } = useAuth();
-
+  const [session] = useSession();
   return (
     <S.Wrapper>
       <h1>Cookbook</h1>
-      {isAuthenticated && <S.Logout onClick={logout}>Logout</S.Logout>}
+      {session && <S.Logout onClick={signOut}>Logout</S.Logout>}
     </S.Wrapper>
   );
 }
