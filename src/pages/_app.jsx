@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
 
-import { AuthProvider, ProtectRoute } from 'context/auth';
 import { useApollo } from 'lib/apolloClient';
 import Navigation from 'components/Navigation';
 
@@ -28,25 +27,21 @@ function App({ Component, pageProps }) {
       <GlobalStyles />
 
       <ApolloProvider client={apolloClient}>
-        <AuthProvider>
-          <Navigation />
-          <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            closeOnClick
-            draggable={false}
-            css={{
-              position: 'fixed',
-              bottom: '24px',
-              right: '24px',
-              width: '586px',
-            }}
-          />
-          <ProtectRoute>
-            <Component {...pageProps} />
-          </ProtectRoute>
-        </AuthProvider>
+        <Navigation />
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick
+          draggable={false}
+          css={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            width: '586px',
+          }}
+        />
+        <Component {...pageProps} />
       </ApolloProvider>
     </>
   );
