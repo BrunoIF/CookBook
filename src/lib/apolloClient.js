@@ -16,7 +16,7 @@ export const GRAPHQL_ENDPOINT = 'http://localhost:8090/graphql/';
 export const WS_GRAPHQL_ENDPOINT = 'ws://localhost:8090/graphql/';
 
 export const getSessionToken = () => {
-  const token = Cookies.get('token');
+  const token = Cookies.get('next-auth.session-token');
   return token;
 };
 
