@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
+import Skeleton from 'react-loading-skeleton';
 
 import { Wrapper as GlobalWrapper } from 'styles/global';
 
@@ -11,7 +12,7 @@ function ProtectedRoute({ children }) {
   if (loading) {
     return (
       <GlobalWrapper>
-        <h1>Loading</h1>
+        <Skeleton height={40} count={3} />
       </GlobalWrapper>
     );
   }
@@ -20,6 +21,7 @@ function ProtectedRoute({ children }) {
   if (!session) {
     if (!isLoginPage) {
       router.push('/login');
+      return null;
     }
   }
 
