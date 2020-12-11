@@ -11,6 +11,7 @@ import SelectList from 'components/SelectList';
 import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import Loader from 'components/Loader';
+import ProtectedRoute from 'components/ProtectedRoute';
 import { Wrapper as GlobalWrapper, Title, Text, FlexRow } from 'styles/global';
 import * as S from 'styles/recipes.styles';
 
@@ -89,57 +90,59 @@ function Create() {
   };
 
   return (
-    <GlobalWrapper>
-      <LinkButton
-        to="/"
-        text="Back to Home"
-        Icon={<FontAwesomeIcon icon={faArrowLeft} />}
-      />
-      <Title>Create new recipe</Title>
-      <S.Grid>
-        <div>
-          <Text>Recipe name:</Text>
-          <Input
-            value={recipeTitle}
-            onChange={(e) => setRecipeTitle(e.target.value)}
-          />
-          <Text>Cooking time:</Text>
-          <Input
-            value={cookingTime}
-            onChange={(e) => setCookingTime(e.target.value)}
-          />
-        </div>
-        <div css={{ marginTop: 0 }}>
-          <Text>Ingredients:</Text>
-          <SelectList
-            options={ingredients.map((ingr) => ingr.name)}
-            placeholder="Choose an ingredient"
-            onChange={handleChange}
-          />
-
-          <S.FlexRow>
-            {selectedIngredients.map((ingr) => (
-              <Button
-                onClick={() => handleIngredientClick(ingr)}
-                key={ingr}
-                text={ingr}
-                css={{ margin: '5px' }}
-              />
-            ))}
-          </S.FlexRow>
-        </div>
-      </S.Grid>
-
-      <FlexRow>
-        <Button
-          type="button"
-          onClick={handleClick}
-          text="Create recipe"
-          css={{ marginTop: '30px' }}
+    <ProtectedRoute>
+      <GlobalWrapper>
+        <LinkButton
+          to="/"
+          text="Back to Home"
+          Icon={<FontAwesomeIcon icon={faArrowLeft} />}
         />
-        {loading && <Loader css={{ marginTop: 0 }} />}
-      </FlexRow>
-    </GlobalWrapper>
+        <Title>Create new recipe</Title>
+        <S.Grid>
+          <div>
+            <Text>Recipe name:</Text>
+            <Input
+              value={recipeTitle}
+              onChange={(e) => setRecipeTitle(e.target.value)}
+            />
+            <Text>Cooking time:</Text>
+            <Input
+              value={cookingTime}
+              onChange={(e) => setCookingTime(e.target.value)}
+            />
+          </div>
+          <div css={{ marginTop: 0 }}>
+            <Text>Ingredients:</Text>
+            <SelectList
+              options={ingredients.map((ingr) => ingr.name)}
+              placeholder="Choose an ingredient"
+              onChange={handleChange}
+            />
+
+            <S.FlexRow>
+              {selectedIngredients.map((ingr) => (
+                <Button
+                  onClick={() => handleIngredientClick(ingr)}
+                  key={ingr}
+                  text={ingr}
+                  css={{ margin: '5px' }}
+                />
+              ))}
+            </S.FlexRow>
+          </div>
+        </S.Grid>
+
+        <FlexRow>
+          <Button
+            type="button"
+            onClick={handleClick}
+            text="Create recipe"
+            css={{ marginTop: '30px' }}
+          />
+          {loading && <Loader css={{ marginTop: 0 }} />}
+        </FlexRow>
+      </GlobalWrapper>
+    </ProtectedRoute>
   );
 }
 
