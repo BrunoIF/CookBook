@@ -1,11 +1,13 @@
 import React from 'react';
-import { signOut, useSession, getSession } from 'next-auth/client';
+import { signOut, useSession } from 'next-auth/client';
 
 import ProtectedRoute from 'components/ProtectedRoute';
 import { Wrapper as GlobalWrapper } from 'styles/global';
 
 function Protected() {
   const [session] = useSession();
+
+  console.log('session', session);
 
   return (
     <ProtectedRoute>
@@ -20,10 +22,5 @@ function Protected() {
     </ProtectedRoute>
   );
 }
-
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  return { props: { session } };
-};
 
 export default Protected;
