@@ -26,10 +26,10 @@ const options = {
           .then((result) => {
             if (result.data) {
               const { data } = result;
+              console.log('data', data);
               const user = {
-                ...data.payload,
-                token: data.token,
-                refreshExpiresIn: data.refreshExpiresIn,
+                ...data.tokenAuth.payload,
+                name: data.tokenAuth.payload.username,
               };
               return Promise.resolve(user);
             } else {
