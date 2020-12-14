@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
-import colors from 'styles/variables/colors';
-import sizes from 'styles/variables/sizes';
+import { colors, sizes } from 'styles/variables';
 
 export const Wrapper = styled.div`
   box-shadow: 2px 5px 10px -5px ${rgba(colors.black, 0.2)};

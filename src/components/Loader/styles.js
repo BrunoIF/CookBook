@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-import colors from 'styles/variables/colors';
+import { colors } from 'styles/variables';
 
 const loaderSize = '25px';
 const borderSize = '5px';

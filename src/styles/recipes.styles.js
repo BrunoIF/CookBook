@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { rgba } from 'polished';
-import colors from 'styles/variables/colors';
+import { colors } from 'styles/variables';
 
 export const Grid = styled.div`
   display: grid;
