@@ -1,7 +1,7 @@
 import styled, { keyframes, css } from 'styled-components';
 import { darken, rgba } from 'polished';
 
-import colors from 'styles/variables/colors';
+import { colors } from 'styles/variables';
 
 const baseProperties = css`
   border-radius: 5px;

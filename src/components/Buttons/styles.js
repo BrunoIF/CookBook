@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
-import colors from 'styles/variables/colors';
+import { colors } from 'styles/variables';
 
 export const Wrapper = styled.div`
   display: flex;

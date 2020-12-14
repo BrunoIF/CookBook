@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle, css } from 'styled-components';
 
-import colors from './variables/colors';
+import { colors } from './variables';
 
 export const MarginsCompact = css`
   & * + * {
