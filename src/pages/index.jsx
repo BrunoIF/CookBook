@@ -1,4 +1,5 @@
 import React from 'react';
+import cookie from 'cookie';
 
 import LinkButton from 'components/Buttons/LinkButton';
 import RecipesList from 'components/RecipesList';
@@ -33,10 +34,20 @@ function Home() {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (ctx) => {
   const apolloClient = initializeApollo();
 
-  await apolloClient.query({ query: GET_ALL_RECIPES });
+  const token = cookie.parse(ctx.req.headers.cookie)['next-auth.session-token'];
+  console.log('authorization', token);
+
+  await apolloClient.query({
+    query: GET_ALL_RECIPES,
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  });
 
   return addApolloState(apolloClient, {
     props: {},
