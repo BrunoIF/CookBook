@@ -4,6 +4,7 @@ import {
   InMemoryCache,
   ApolloLink,
   HttpLink,
+  makeVar,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getMainDefinition } from '@apollo/client/utilities';
@@ -14,6 +15,12 @@ import ws from 'ws';
 
 export const GRAPHQL_ENDPOINT = 'http://localhost:8090/graphql/';
 export const WS_GRAPHQL_ENDPOINT = 'ws://localhost:8090/graphql/';
+
+export const savedRecipesVar = makeVar();
+
+export const saveRecipe = (id) => {
+  savedRecipesVar([...savedRecipesVar, id]);
+};
 
 export const getSessionToken = () => {
   const token = Cookies.get('token');
