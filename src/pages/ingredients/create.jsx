@@ -20,7 +20,7 @@ function Create() {
 
   const handleClick = () => {
     createIngredient({
-      variables: { ingredient: { name: `${ingredientName}` } },
+      variables: { ingredient: { name: ingredientName } },
     });
   };
 
