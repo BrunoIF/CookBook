@@ -11,7 +11,7 @@ import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import ProtectedRoute from 'components/ProtectedRoute';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
-import { initializeApollo, addApolloState } from 'lib/apolloClient';
+import { initializeApollo, addApolloState, saveRecipe } from 'lib/apolloClient';
 
 import * as S from 'styles/recipes.styles';
 import { DELETE_RECIPE } from 'queries/recipes';
@@ -71,6 +71,15 @@ function Recipe({ recipeId }) {
                   <Info title="Ingredients" description={ingredientsList} />
                 </S.IngredientsWrapper>
                 <S.FlexRow css={{ marginTop: '30px' }}>
+                  {recipe.isSaved ? (
+                    <p>Recipe saved</p>
+                  ) : (
+                    <Button
+                      text="Save Recipe"
+                      onClick={() => saveRecipe(recipeId)}
+                    />
+                  )}
+
                   <Button text="Delete Recipe" onClick={handleDeleteRecipe} />
                   <LinkButton
                     to={`/recipes/${recipeId}/edit`}
