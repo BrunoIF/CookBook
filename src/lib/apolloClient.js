@@ -16,10 +16,11 @@ import ws from 'ws';
 export const GRAPHQL_ENDPOINT = 'http://localhost:8090/graphql/';
 export const WS_GRAPHQL_ENDPOINT = 'ws://localhost:8090/graphql/';
 
-export const savedRecipesVar = makeVar();
+export const savedRecipesVar = makeVar([]);
 
 export const saveRecipe = (id) => {
-  savedRecipesVar([...savedRecipesVar, id]);
+  savedRecipesVar([...savedRecipesVar(), id]);
+  console.log('savedRecipesVar', savedRecipesVar());
 };
 
 export const getSessionToken = () => {
@@ -45,6 +46,7 @@ const subscriptionClient =
   typeof window !== 'undefined'
     ? new SubscriptionClient(WS_GRAPHQL_ENDPOINT, {
         reconnect: true,
+        lazy: true,
         connectionParams: {
           headers: {
             authorization: `Bearer ${getSessionToken()}`,
@@ -83,7 +85,22 @@ function createApolloClient() {
     ssrMode: typeof window === 'undefined',
     uri: GRAPHQL_ENDPOINT,
     link: finalLink,
-    cache: new InMemoryCache(),
+    cache:
+      typeof window === 'undefined'
+        ? new InMemoryCache()
+        : new InMemoryCache({
+            typePolicies: {
+              RecipeType: {
+                fields: {
+                  isSaved: {
+                    read(_, { variables }) {
+                      return savedRecipesVar().includes(variables.id);
+                    },
+                  },
+                },
+              },
+            },
+          }),
   });
 }
 
