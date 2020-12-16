@@ -9,7 +9,6 @@ import { GET_RECIPE } from 'queries/recipes';
 import Info from 'components/Info';
 import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
-import ProtectedRoute from 'components/ProtectedRoute';
 import { Wrapper as GlobalWrapper, Title } from 'styles/global';
 import { initializeApollo, addApolloState, saveRecipe } from 'lib/apolloClient';
 
@@ -28,6 +27,7 @@ function Recipe({ recipeId }) {
 
   useEffect(() => {
     if (data && !error) {
+      console.log('Recipe data', data);
       setRecipe(data?.recipe);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,49 +51,48 @@ function Recipe({ recipeId }) {
         <title>{recipe.title}</title>
       </Head>
 
-      <ProtectedRoute>
-        <GlobalWrapper>
-          <LinkButton to="/" text="Back" Icon={backArrow} />
-          {recipe ? (
-            <S.FlexRow css={{ marginTop: '30px' }}>
-              <S.Image src={recipe.image} alt={`${recipe.title}`} />
-              <div css={{ marginLeft: '30px', width: '50%' }}>
-                <Title>{recipe.title}</Title>
-                <S.ContentWrapper>
-                  <div>
-                    <Info
-                      title="Cooking Time"
-                      description={recipe.cookingTime}
-                    />
-                  </div>
-                </S.ContentWrapper>
-                <S.IngredientsWrapper>
-                  <Info title="Ingredients" description={ingredientsList} />
-                </S.IngredientsWrapper>
-                <S.FlexRow css={{ marginTop: '30px' }}>
-                  {recipe.isSaved ? (
-                    <p>Recipe saved</p>
-                  ) : (
-                    <Button
-                      text="Save Recipe"
-                      onClick={() => saveRecipe(recipeId)}
-                    />
-                  )}
-
-                  <Button text="Delete Recipe" onClick={handleDeleteRecipe} />
-                  <LinkButton
-                    to={`/recipes/${recipeId}/edit`}
-                    css={{ marginLeft: '30px', marginTop: 0 }}
-                    text="Edit Recipe"
+      <GlobalWrapper>
+        <LinkButton to="/" text="Back" Icon={backArrow} />
+        {recipe ? (
+          <S.FlexRow css={{ marginTop: '30px' }}>
+            <S.Image src={recipe.image} alt={`${recipe.title}`} />
+            <div css={{ marginLeft: '30px', width: '50%' }}>
+              <Title>{recipe.title}</Title>
+              <S.ContentWrapper>
+                <div>
+                  <Info title="Cooking Time" description={recipe.cookingTime} />
+                </div>
+              </S.ContentWrapper>
+              <S.IngredientsWrapper>
+                <Info title="Ingredients" description={ingredientsList} />
+              </S.IngredientsWrapper>
+              <S.FlexRow css={{ marginTop: '30px' }}>
+                {recipe.isSaved ? (
+                  <p>Recipe saved</p>
+                ) : (
+                  <Button
+                    text="Save Recipe"
+                    onClick={() => saveRecipe(recipeId)}
                   />
-                </S.FlexRow>
-              </div>
-            </S.FlexRow>
-          ) : (
-            <Title>Not found</Title>
-          )}
-        </GlobalWrapper>
-      </ProtectedRoute>
+                )}
+
+                <Button
+                  text="Delete Recipe"
+                  onClick={handleDeleteRecipe}
+                  css={{ marginLeft: '30px', marginTop: 0 }}
+                />
+                <LinkButton
+                  to={`/recipes/${recipeId}/edit`}
+                  css={{ marginLeft: '30px', marginTop: 0 }}
+                  text="Edit Recipe"
+                />
+              </S.FlexRow>
+            </div>
+          </S.FlexRow>
+        ) : (
+          <Title>Not found</Title>
+        )}
+      </GlobalWrapper>
     </>
   );
 }
@@ -114,6 +113,7 @@ export const getStaticProps = async (context) => {
 
   return addApolloState(apolloClient, {
     props: { recipeId: recipe },
+    revalidate: 10,
   });
 };
 

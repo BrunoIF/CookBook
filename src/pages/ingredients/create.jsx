@@ -9,7 +9,6 @@ import Input from 'components/Input';
 import LinkButton from 'components/Buttons/LinkButton';
 import Button from 'components/Buttons/Button';
 import Loader from 'components/Loader';
-import ProtectedRoute from 'components/ProtectedRoute';
 import { Wrapper as GlobalWrapper, Title, Text, FlexRow } from 'styles/global';
 
 function Create() {
@@ -39,31 +38,29 @@ function Create() {
   }, [data, error]);
 
   return (
-    <ProtectedRoute>
-      <GlobalWrapper>
-        <LinkButton
-          to="/"
-          text="Back to Home"
-          Icon={<FontAwesomeIcon icon={faArrowLeft} />}
+    <GlobalWrapper>
+      <LinkButton
+        to="/"
+        text="Back to Home"
+        Icon={<FontAwesomeIcon icon={faArrowLeft} />}
+      />
+      <Title>Add new Ingredient</Title>
+      <Text>Ingredient name:</Text>
+      <Input
+        value={ingredientName}
+        onChange={(e) => setIngredientName(e.target.value)}
+      />
+      <FlexRow>
+        <Button
+          type="button"
+          onClick={handleClick}
+          disabled={!ingredientName.length}
+          text="Add"
+          css={{ marginTop: '30px' }}
         />
-        <Title>Add new Ingredient</Title>
-        <Text>Ingredient name:</Text>
-        <Input
-          value={ingredientName}
-          onChange={(e) => setIngredientName(e.target.value)}
-        />
-        <FlexRow>
-          <Button
-            type="button"
-            onClick={handleClick}
-            disabled={!ingredientName.length}
-            text="Add"
-            css={{ marginTop: '30px' }}
-          />
-          {loading && <Loader />}
-        </FlexRow>
-      </GlobalWrapper>
-    </ProtectedRoute>
+        {loading && <Loader />}
+      </FlexRow>
+    </GlobalWrapper>
   );
 }
 
