@@ -7,6 +7,8 @@ export const GET_ALL_RECIPES = gql`
       title
       cookingTime
       image
+      isSaved @client
+
       ingredients {
         id
         name
@@ -30,6 +32,8 @@ export const GET_RECIPE = gql`
       title
       cookingTime
       image
+      isSaved @client
+
       ingredients {
         name
       }
