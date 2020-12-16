@@ -2,6 +2,9 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
+import Skeleton from 'react-loading-skeleton';
+
+import { Wrapper as GlobalWrapper } from 'styles/global';
 
 import { VERIFY_TOKEN, GET_AUTH_TOKEN } from 'queries/authentication';
 
@@ -79,7 +82,11 @@ export const ProtectRoute = ({ children }) => {
   const router = useRouter();
 
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return (
+      <GlobalWrapper>
+        <Skeleton height={40} count={3} />
+      </GlobalWrapper>
+    );
   } else {
     const isLoginPage = window.location.pathname === '/login';
 
