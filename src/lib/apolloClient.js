@@ -81,26 +81,27 @@ export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 let apolloClient;
 
 function createApolloClient() {
+  const isServer = typeof window === 'undefined';
+
   return new ApolloClient({
-    ssrMode: typeof window === 'undefined',
+    ssrMode: isServer,
     uri: GRAPHQL_ENDPOINT,
     link: finalLink,
-    cache:
-      typeof window === 'undefined'
-        ? new InMemoryCache()
-        : new InMemoryCache({
-            typePolicies: {
-              RecipeType: {
-                fields: {
-                  isSaved: {
-                    read(_, { variables }) {
-                      return savedRecipesVar().includes(variables.id);
-                    },
+    cache: isServer
+      ? new InMemoryCache()
+      : new InMemoryCache({
+          typePolicies: {
+            RecipeType: {
+              fields: {
+                isSaved: {
+                  read(_, { variables }) {
+                    return savedRecipesVar().includes(variables.id);
                   },
                 },
               },
             },
-          }),
+          },
+        }),
   });
 }
 
