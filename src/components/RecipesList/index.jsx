@@ -14,7 +14,7 @@ function RecipesList() {
   useEffect(() => {
     if (initialRecipes) {
       const { recipes } = initialRecipes;
-      setRecipes((prevState) => [...prevState, ...recipes]);
+      setRecipes(recipes);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialRecipes]);
