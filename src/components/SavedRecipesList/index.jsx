@@ -7,7 +7,7 @@ import Card from 'components/Card';
 import * as S from 'styles/index.styles';
 import { Title } from 'styles/global';
 
-function RecipesList() {
+function SavedRecipesList() {
   const { data: initialRecipes, error, loading } = useQuery(GET_ALL_RECIPES);
   const [recipes, setRecipes] = useState([]);
 
@@ -37,4 +37,4 @@ function RecipesList() {
   );
 }
 
-export default RecipesList;
+export default SavedRecipesList;
