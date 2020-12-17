@@ -94,8 +94,13 @@ function createApolloClient() {
             RecipeType: {
               fields: {
                 isSaved: {
-                  read(_, { variables }) {
-                    return savedRecipesVar().includes(variables.id);
+                  read(_, { variables, readField }) {
+                    if (variables.id) {
+                      return savedRecipesVar().includes(variables.id);
+                    }
+
+                    const id = readField('id');
+                    return savedRecipesVar().includes(id);
                   },
                 },
               },
