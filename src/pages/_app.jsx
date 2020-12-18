@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
 
-import { AuthProvider, ProtectRoute } from 'context/auth';
+import { AuthProvider } from 'context/auth';
 import { useApollo } from 'lib/apolloClient';
 import Navigation from 'components/Navigation';
 
@@ -43,9 +43,9 @@ function App({ Component, pageProps }) {
               width: '586px',
             }}
           />
-          <ProtectRoute>
-            <Component {...pageProps} />
-          </ProtectRoute>
+          {/* <ProtectRoute> */}
+          <Component {...pageProps} />
+          {/* </ProtectRoute> */}
         </AuthProvider>
       </ApolloProvider>
     </>
