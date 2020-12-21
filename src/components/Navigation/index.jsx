@@ -1,5 +1,5 @@
 import React from 'react';
-import { signOut, useSession } from 'next-auth/client';
+import { signOut, signIn, useSession } from 'next-auth/client';
 
 import * as S from './styles';
 
@@ -8,7 +8,11 @@ function Navigation() {
   return (
     <S.Wrapper>
       <h1>Cookbook</h1>
-      {session && <S.Logout onClick={signOut}>Logout</S.Logout>}
+      {session?.user ? (
+        <S.Logout onClick={signOut}>Logout</S.Logout>
+      ) : (
+        <S.Logout onClick={signIn}>Login</S.Logout>
+      )}
     </S.Wrapper>
   );
 }
