@@ -4693,17 +4693,17 @@ cli-cursor@^3.1.0:
   dependencies:
     restore-cursor "^3.1.0"
 
-cli-highlight@^2.1.4:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/cli-highlight/-/cli-highlight-2.1.9.tgz#4f4ecb05326d70d56d4b4249fabf9a70fb002497"
-  integrity sha512-t8RNIZgiI24i/mslZ8XT8o660RUj5ZbUJpEZrZa/BNekTzdC2LfMRAnt0Y7sgzNM4FGW5tmWg/YnbTH8o1eIOQ==
+cli-highlight@^2.1.10:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/cli-highlight/-/cli-highlight-2.1.10.tgz#26a087da9209dce4fcb8cf5427dc97cd96ac173a"
+  integrity sha512-CcPFD3JwdQ2oSzy+AMG6j3LRTkNjM82kzcSKzoVw6cLanDCJNlsLjeqVTOTfOfucnWv5F0rmBemVf1m9JiIasw==
   dependencies:
     chalk "^4.0.0"
     highlight.js "^10.0.0"
     mz "^2.4.0"
     parse5 "^5.1.1"
     parse5-htmlparser2-tree-adapter "^6.0.0"
-    yargs "^15.0.0"
+    yargs "^16.0.0"
 
 cli-spinners@^2.0.0:
   version "2.5.0"
@@ -9201,11 +9201,6 @@ jws@^4.0.0:
     jwa "^2.0.0"
     safe-buffer "^5.0.1"
 
-jwt-decode@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
-  integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
-
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -10067,23 +10062,23 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.0.tgz#0fbdcf3e13fe4994781280524f8b96b0cdff9c61"
   integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
 
-next-auth@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-3.1.0.tgz#45ebf94fc481be1413d36ec72522add2a6739585"
-  integrity sha512-e+s6hjPZpqbnjla9WOi0VuLkDlLMU3cJmS0jTBBvsvSGsOPvMbaCCAMBEoNV3nWSgPrq6zLG2dixmCCxzG7fXA==
+next-auth@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-3.6.0.tgz#be92bf29545813ee4b657d262e7a133ea2177b45"
+  integrity sha512-tkaQvAlW7Roo+pViuw6U48jpv7MaS/2kOpUj4MLO8/SeL66z4YpXRHxAAF6jfKd1w4Dbu/y7hzau/2cIbl887g==
   dependencies:
     crypto-js "^4.0.0"
     futoin-hkdf "^1.3.2"
     jose "^1.27.2"
     jsonwebtoken "^8.5.1"
-    jwt-decode "^2.2.0"
-    nodemailer "^6.4.6"
+    nodemailer "^6.4.16"
     oauth "^0.9.15"
+    pkce-challenge "^2.1.0"
     preact "^10.4.1"
     preact-render-to-string "^5.1.7"
     querystring "^0.2.0"
     require_optional "^1.0.1"
-    typeorm "^0.2.24"
+    typeorm "^0.2.30"
 
 next-pwa@^3.1.5:
   version "3.1.5"
@@ -10286,10 +10281,10 @@ node-releases@^1.1.52, node-releases@^1.1.65, node-releases@^1.1.66:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.67.tgz#28ebfcccd0baa6aad8e8d4d8fe4cbc49ae239c12"
   integrity sha512-V5QF9noGFl3EymEwUYzO+3NTDpGfQB4ve6Qfnzf3UNydMhjQRVPR1DZTuvWiLzaFJYw2fmDwAfnRNEVb64hSIg==
 
-nodemailer@^6.4.6:
-  version "6.4.16"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.4.16.tgz#5cb6391b1d79ab7eff32d6f9f48366b5a7117293"
-  integrity sha512-68K0LgZ6hmZ7PVmwL78gzNdjpj5viqBdFqKrTtr9bZbJYj6BRj5W6WGkxXrEnUl3Co3CBXi3CZBUlpV/foGnOQ==
+nodemailer@^6.4.16:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.5.0.tgz#d12c28d8d48778918e25f1999d97910231b175d9"
+  integrity sha512-Tm4RPrrIZbnqDKAvX+/4M+zovEReiKlEXWDzG4iwtpL9X34MJY+D5LnQPH/+eghe8DLlAVshHAJZAZWBGhkguw==
 
 noop-logger@^0.1.1:
   version "0.1.1"
@@ -10977,6 +10972,11 @@ pirates@^4.0.0, pirates@^4.0.1:
   integrity sha512-WuNqLTbMI3tmfef2TKxlQmAiLHKtFhlsCZnPIpuv2Ow0RDVO8lfy1Opf4NUzlMXLjPl+Men7AuVdX6TA+s+uGA==
   dependencies:
     node-modules-regexp "^1.0.0"
+
+pkce-challenge@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pkce-challenge/-/pkce-challenge-2.1.0.tgz#90730f839b2ab00a8cbdd6e808bbaecc10e09b1c"
+  integrity sha512-ehrkzg1m5IBJGEAfePkd+nxBl9JrUC7dqkaL2q/BMsiADSRWSCapIEXlzr7rnfr1RtK6PACVJiE1USKm68QkrQ==
 
 pkg-dir@^3.0.0:
   version "3.0.0"
@@ -13751,16 +13751,16 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeorm@^0.2.24:
-  version "0.2.29"
-  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.2.29.tgz#401289dc91900d72eccb26e31cdb7f0591a2272e"
-  integrity sha512-ih1vrTe3gEAGKRcWlcsTRxTL7gNjacQE498wVGuJ3ZRujtMqPZlbAWuC7xDzWCRjQnkZYNwZQeG9UgKfxSHB5g==
+typeorm@^0.2.30:
+  version "0.2.31"
+  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.2.31.tgz#82b8a1b233224f81c738f53b0380386ccf360917"
+  integrity sha512-dVvCEVHH48DG0QPXAKfo0l6ecQrl3A8ucGP4Yw4myz4YEDMProebTQo8as83uyES+nrwCbu3qdkL4ncC2+qcMA==
   dependencies:
     "@sqltools/formatter" "1.2.2"
     app-root-path "^3.0.0"
     buffer "^5.5.0"
     chalk "^4.1.0"
-    cli-highlight "^2.1.4"
+    cli-highlight "^2.1.10"
     debug "^4.1.1"
     dotenv "^8.2.0"
     glob "^7.1.6"
@@ -14784,7 +14784,7 @@ yargs-parser@^20.2.2:
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.2.4.tgz#b42890f14566796f85ae8e3a25290d205f154a54"
   integrity sha512-WOkpgNhPTlE73h4VFAFsOnomJVaovO8VqLDzy5saChRBFQFBoMYirowyW+Q9HB4HFF4Z7VZTiG3iSzJJA29yRA==
 
-yargs@^15.0.0, yargs@^15.4.1:
+yargs@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.4.1.tgz#0d87a16de01aee9d8bec2bfbf74f67851730f4f8"
   integrity sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
@@ -14801,7 +14801,7 @@ yargs@^15.0.0, yargs@^15.4.1:
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
 
-yargs@^16.0.3:
+yargs@^16.0.0, yargs@^16.0.3:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-16.2.0.tgz#1c82bf0f6b6a66eafce7ef30e376f49a12477f66"
   integrity sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==
