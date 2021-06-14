@@ -44,7 +44,7 @@
     "react-loading-skeleton": "^2.1.1",
     "react-toastify": "^6.1.0",
     "styled-components": "^5.2.1",
-    "subscriptions-transport-ws": "^0.9.18",
+    "subscriptions-transport-ws": "^0.9.19",
     "ws": "^7.4.1"
   },
   "devDependencies": {
