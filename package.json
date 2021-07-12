@@ -36,7 +36,7 @@
     "graphql": "^15.4.0",
     "js-cookie": "^2.2.1",
     "next": "10.0.2",
-    "next-auth": "^3.1.0",
+    "next-auth": "^3.27.3",
     "next-pwa": "^3.1.5",
     "polished": "^4.0.5",
     "react": "17.0.1",
