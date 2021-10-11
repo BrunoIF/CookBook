@@ -33,7 +33,7 @@
     "@fortawesome/react-fontawesome": "^0.1.13",
     "cookie": "^0.4.1",
     "googleapis": "^66.0.0",
-    "graphql": "^15.4.0",
+    "graphql": "^15.6.1",
     "js-cookie": "^2.2.1",
     "next": "10.0.2",
     "next-auth": "^3.1.0",
