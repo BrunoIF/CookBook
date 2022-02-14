@@ -29,7 +29,7 @@
     "@apollo/client": "^3.2.9",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "cookie": "^0.4.1",
     "googleapis": "^66.0.0",
